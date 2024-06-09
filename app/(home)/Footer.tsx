@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import MagicButton from "./ui/MagicButton";
+import MagicButton from "../../components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
 import { socialMedia } from "@/data";
-import Logo from "./ui/Logo";
-import Copyright from "./Copyright";
+import Logo from "../../components/ui/Logo";
+import Copyright from "../../components/Copyright";
 import { Routes } from "@/app/routes";
 
 const Footer = () => {

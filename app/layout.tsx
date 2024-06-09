@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/utils/theme-provider";
+import { ThemeProvider } from "@/utils/providers/theme";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Code Elevate",
+  title: {
+    default: "Code Elevate",
+    template: "%s | Code Elevate",
+  },
   description: "Platform for elevating coding skills!",
 };
 
@@ -26,6 +30,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

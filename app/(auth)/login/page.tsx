@@ -1,26 +1,88 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "@/components/ui/Label";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/utils/cn";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
+import { IconBrandGoogle } from "@tabler/icons-react";
 import { Navbar } from "@/components/Navbar";
-import { navItems } from "@/data";
+import { toast } from "sonner";
 import Copyright from "@/components/Copyright";
 import MagicButton from "@/components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
 import Link from "next/link";
-import { Routes } from "@/app/routes";
+import { Routes, navItems } from "@/app/routes";
+import { useAuth } from "@/utils/providers/auth";
+import { IoClose } from "react-icons/io5";
+import { login } from "@/utils/services/auth";
+import { useRouter } from "next/navigation";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 const Login = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const isAuthenticated = useAuth((state) => state.isAuthenticated);
+  const setToken = useAuth((state) => state.setToken);
+  const setUser = useAuth((state) => state.setUser);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace(Routes.HOME);
+    }
+  }, [isAuthenticated]);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    toast.dismiss();
+
+    if (!email || !password) {
+      toast.warning("Please fill in all fields", {
+        description: `${[!email && "Email", !password && "Password"]
+          .filter(Boolean)
+          .join(" and ")} is required`,
+        action: {
+          label: <IoClose />,
+          onClick: () => toast.dismiss(),
+        },
+        duration: 3000,
+      });
+      return;
+    }
+
+    const toastId = toast.loading("Logging in...");
+
+    const response = await login(email, password);
+    const data = await response.json();
+
+    if (!response.ok) {
+      toast.error(data.message, {
+        id: toastId,
+        duration: 3000,
+        action: {
+          label: <IoClose />,
+          onClick: () => toast.dismiss(),
+        },
+      });
+      return;
+    }
+
+    setToken(response.headers.get("x-auth-token"));
+    setUser(data.user);
+
+    router.replace(Routes.HOME);
+
+    toast.success(`Welcome back, ${data.user.name}`, {
+      id: toastId,
+      duration: 3000,
+      action: {
+        label: <IoClose />,
+        onClick: () => toast.dismiss(),
+      },
+    });
   };
+
   return (
     <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 py-20 overflow-hidden">
       <div className="max-w-7xl w-full">
@@ -36,11 +98,22 @@ const Login = () => {
           <form className="my-8" onSubmit={handleSubmit}>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="email">Email Address</Label>
-              <Input id="email" placeholder="coder@mail.com" type="email" />
+              <Input
+                id="email"
+                placeholder="coder@mail.com"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </LabelInputContainer>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" placeholder="••••••••" type="password" />
+              <PasswordInput
+                id="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </LabelInputContainer>
 
             <MagicButton
@@ -67,7 +140,8 @@ const Login = () => {
             <div className="flex flex-col space-y-4">
               <button
                 className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full rounded-[4px] h-12 font-medium shadow-input bg-slate-900 border border-white/[0.2] shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-                type="submit"
+                type="button"
+                onClick={() => toast.info("Google Sign In is coming soon!")}
               >
                 <IconBrandGoogle className="h-4 w-4 text-neutral-300" />
                 <span className="text-neutral-300 text-sm ">

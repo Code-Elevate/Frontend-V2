@@ -11,6 +11,7 @@ import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { Routes } from "@/app/routes";
+import { useAuth } from "@/utils/providers/auth";
 
 export const Navbar = ({
   navItems,
@@ -26,6 +27,12 @@ export const Navbar = ({
   current?: string;
 }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const [visible, setVisible] = useState(true);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+
+  const isAuthenticated = useAuth((state) => state.isAuthenticated);
+  const user = useAuth((state) => state.user);
 
   React.useEffect(() => {
     if (window.innerWidth < 640) {
@@ -40,10 +47,6 @@ export const Navbar = ({
       }
     });
   }, []);
-
-  const { scrollYProgress } = useScroll();
-  const [visible, setVisible] = useState(true);
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     // Check if current is not undefined and is a number
@@ -89,7 +92,11 @@ export const Navbar = ({
         </button>
 
         <button className="flex justify-center items-center border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white flex-grow py-2 rounded-full">
-          <Link href={Routes.LOGIN}>Login</Link>
+          {isAuthenticated ? (
+            <Link href={Routes.PROFILE}>{user?.id}</Link>
+          ) : (
+            <Link href={Routes.LOGIN}>Login</Link>
+          )}
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
         </button>
       </motion.div>
@@ -167,7 +174,11 @@ export const Navbar = ({
           </Link>
         ))}
         <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
-          <Link href={Routes.LOGIN}>Login</Link>
+          {isAuthenticated ? (
+            <Link href={Routes.PROFILE}>{user?.id}</Link>
+          ) : (
+            <Link href={Routes.LOGIN}>Login</Link>
+          )}
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
         </button>
       </motion.div>

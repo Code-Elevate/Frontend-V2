@@ -7,9 +7,13 @@ import { cn } from "@/utils/cn";
 export const TextGenerateEffect = ({
   words,
   className,
+  index,
+  delay,
 }: {
   words: string;
   className?: string;
+  index: number;
+  delay: number;
 }) => {
   const [scope, animate] = useAnimate();
   let wordsArray = words.split(" ");
@@ -21,7 +25,7 @@ export const TextGenerateEffect = ({
       },
       {
         duration: 2,
-        delay: stagger(0.2),
+        delay: stagger(delay),
       }
     );
   }, [scope.current]);
@@ -34,7 +38,7 @@ export const TextGenerateEffect = ({
             <motion.span
               key={word + idx}
               className={` ${
-                idx > 4 ? "text-purple" : "dark:text-neutral-100 text-black"
+                idx > index ? "text-purple" : "dark:text-neutral-100 text-black"
               } opacity-0`}
             >
               {word}{" "}

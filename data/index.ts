@@ -1,19 +1,5 @@
 import { IconBrandGithub, IconMail } from "@tabler/icons-react";
 
-export enum navTitles {
-  Home = "Home",
-  Contests = "Contests",
-  Problems = "Problems",
-  About = "About",
-}
-
-export const navItems = [
-  { name: navTitles.Home, link: "/" },
-  { name: navTitles.Contests, link: "/contests" },
-  { name: navTitles.Problems, link: "/problems" },
-  { name: navTitles.About, link: "/about" },
-];
-
 export const gridItems = [
   {
     id: 1,
