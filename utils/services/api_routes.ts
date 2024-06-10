@@ -3,6 +3,8 @@ enum ApiRoutes {
 
   REGISTER = _BASE + "/users/register",
   LOGIN = _BASE + "/users/login",
+
+  CONTESTS = _BASE + "/contests",
 }
 
 export default ApiRoutes;

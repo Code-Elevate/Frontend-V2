@@ -1,5 +1,3 @@
-// Auth services for doing api calls to the server for register and login
-
 import ApiRoutes from "./api_routes";
 
 export const register = async (

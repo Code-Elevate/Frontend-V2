@@ -126,7 +126,9 @@ const Login = () => {
             />
 
             <div className="flex items-center justify-center mt-8 gap-1">
-              <p className="text-sm text-neutral-300">Don't have an account?</p>
+              <p className="text-sm text-neutral-300">
+                Don&apos;t have an account?
+              </p>
               <Link
                 href={Routes.REGISTER}
                 className="text-sm font-medium text-purple hover:underline"

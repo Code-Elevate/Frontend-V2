@@ -70,10 +70,8 @@ export const Navbar = ({
       <motion.div
         initial={{
           opacity: 1,
-          y: -100,
         }}
         animate={{
-          y: visible ? 0 : -100,
           opacity: visible ? 1 : 0,
         }}
         transition={{
@@ -105,10 +103,8 @@ export const Navbar = ({
         <motion.div
           initial={{
             opacity: 0,
-            y: -100,
           }}
           animate={{
-            y: isMobileDropdownOpen ? 0 : -100,
             opacity: isMobileDropdownOpen ? 1 : 0,
           }}
           transition={{
@@ -143,10 +139,8 @@ export const Navbar = ({
       <motion.div
         initial={{
           opacity: 1,
-          y: -100,
         }}
         animate={{
-          y: visible ? 0 : -100,
           opacity: visible ? 1 : 0,
         }}
         transition={{
