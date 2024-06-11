@@ -1,21 +1,27 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { useAuth } from "@/utils/providers/auth";
+import React from "react";
+
 import { useRouter } from "next/navigation";
 import MagicButton from "@/components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
 import { Routes } from "@/app/routes";
+import { useCookies } from "react-cookie";
 
 const Profile = ({ params }: { params: { id: string } }) => {
-  const isAuthenticated = useAuth((state) => state.isAuthenticated);
-  const user = useAuth((state) => state.user);
-  const removeAuth = useAuth((state) => state.removeAuth);
+  const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);
+
+  const isAuthenticated = cookies["token"] ? true : false;
+  const user = cookies["user"] as string;
 
   const router = useRouter();
 
   const handleLogout = () => {
-    removeAuth();
+    removeCookies("token");
+    removeCookies("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
     router.replace(Routes.HOME);
   };
 
@@ -23,7 +29,7 @@ const Profile = ({ params }: { params: { id: string } }) => {
     <>
       <div>Profile {params.id}</div>
 
-      {isAuthenticated && user?.id === params.id && (
+      {isAuthenticated && user === params.id && (
         <MagicButton
           title="Logout"
           icon={<FaLocationArrow />}

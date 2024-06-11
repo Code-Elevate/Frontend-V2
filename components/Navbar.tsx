@@ -11,7 +11,8 @@ import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { Routes } from "@/app/routes";
-import { useAuth } from "@/utils/providers/auth";
+
+import { useCookies } from "react-cookie";
 
 export const Navbar = ({
   navItems,
@@ -31,8 +32,18 @@ export const Navbar = ({
   const [visible, setVisible] = useState(true);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
 
-  const isAuthenticated = useAuth((state) => state.isAuthenticated);
-  const user = useAuth((state) => state.user);
+  // const isAuthenticated = useAuth((state) => state.isAuthenticated);
+  // const user = useAuth((state) => state.user);
+
+  const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);
+
+  const isAuthenticated = cookies["token"] ? true : false;
+  const user = (cookies["user"] as string) || "";
+
+  const [hydrated, setHydrated] = React.useState(false);
+  React.useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   React.useEffect(() => {
     if (window.innerWidth < 640) {
@@ -65,6 +76,10 @@ export const Navbar = ({
     }
   });
 
+  if (!hydrated) {
+    return null;
+  }
+
   return isMobile ? (
     <AnimatePresence mode="wait">
       <motion.div
@@ -91,7 +106,7 @@ export const Navbar = ({
 
         <button className="flex justify-center items-center border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white flex-grow py-2 rounded-full">
           {isAuthenticated ? (
-            <Link href={Routes.PROFILE}>{user?.id}</Link>
+            <Link href={`${Routes.PROFILE}/${user}`}>{user}</Link>
           ) : (
             <Link href={Routes.LOGIN}>Login</Link>
           )}
@@ -169,7 +184,7 @@ export const Navbar = ({
         ))}
         <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
           {isAuthenticated ? (
-            <Link href={Routes.PROFILE}>{user?.id}</Link>
+            <Link href={`${Routes.PROFILE}/${user}`}>{user}</Link>
           ) : (
             <Link href={Routes.LOGIN}>Login</Link>
           )}

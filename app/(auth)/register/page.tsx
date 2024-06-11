@@ -1,43 +1,32 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 import { Label } from "@/components/ui/Label";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/utils/cn";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
+import { IconBrandGoogle } from "@tabler/icons-react";
 import { Navbar } from "@/components/Navbar";
-
 import Copyright from "@/components/Copyright";
 import MagicButton from "@/components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
 import Link from "next/link";
 import { Routes, navItems } from "@/app/routes";
-import { login, register } from "@/utils/services/auth";
-import router, { useRouter } from "next/navigation";
+import { register } from "@/utils/services/auth";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IoClose } from "react-icons/io5";
 import { toast } from "sonner";
-import { useAuth } from "@/utils/providers/auth";
 import { PasswordInput } from "@/components/ui/PasswordInput";
+import { useCookies } from "react-cookie";
 
 const Register = () => {
   const router = useRouter();
-
-  const isAuthenticated = useAuth((state) => state.isAuthenticated);
-  const setToken = useAuth((state) => state.setToken);
-  const setUser = useAuth((state) => state.setUser);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.replace(Routes.HOME);
-    }
-  }, [isAuthenticated]);
+  const redirect = useSearchParams().get("redirect");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -90,10 +79,13 @@ const Register = () => {
       return;
     }
 
-    setToken(response.headers.get("x-auth-token"));
-    setUser(data.user);
+    setCookies("token", response.headers.get("x-auth-token"));
+    setCookies("user", data.user.id);
 
-    router.replace(Routes.HOME);
+    localStorage.setItem("token", response.headers.get("x-auth-token")!);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    router.replace(redirect || Routes.DASHBOARD);
 
     toast.success(`Welcome, ${data.user.name}`, {
       id: toastId,
@@ -106,7 +98,7 @@ const Register = () => {
   };
 
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 py-20 overflow-hidden">
+    <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 pt-20 pb-8 overflow-hidden">
       <div className="max-w-7xl w-full">
         <div className="h-screen w-full dark:bg-black-100 bg-white dark:bg-grid-white/[0.03] bg-grid-black/[0.2] flex items-center justify-center absolute top-0 left-0 z-0">
           <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
@@ -162,7 +154,11 @@ const Register = () => {
                 Already have an account?
               </p>
               <Link
-                href={Routes.LOGIN}
+                href={
+                  redirect
+                    ? `${Routes.LOGIN}?redirect=${redirect}`
+                    : Routes.LOGIN
+                }
                 className="text-sm font-medium text-purple hover:underline"
               >
                 Login

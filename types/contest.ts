@@ -5,4 +5,5 @@ export type ContestData = {
   startTime: string;
   endTime: string;
   duration: string;
+  organizers: string[];
 };

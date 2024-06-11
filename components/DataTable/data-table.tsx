@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -23,27 +23,31 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
-import { DataTableToolbar } from "./data-table-toolbar"
-import { DataTablePagination } from "./data-table-pagination"
+import { DataTableToolbar } from "./data-table-toolbar";
+import { DataTablePagination } from "./data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  sortColumn?: string;
+  hiddenColumns?: string[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  sortColumn,
+  hiddenColumns,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
+  );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
   const table = useReactTable({
     data,
     columns,
@@ -64,11 +68,19 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
+  });
+
+  React.useEffect(() => {
+    if (hiddenColumns) {
+      hiddenColumns.forEach((columnId) => {
+        table.getColumn(columnId)?.toggleVisibility(false);
+      });
+    }
+  }, [hiddenColumns]);
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} sortColumn={sortColumn} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -84,7 +96,7 @@ export function DataTable<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -119,7 +131,11 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {table.getRowModel().rows?.length ? (
+        <DataTablePagination table={table} />
+      ) : (
+        <div className="h-8" />
+      )}
     </div>
-  )
+  );
 }

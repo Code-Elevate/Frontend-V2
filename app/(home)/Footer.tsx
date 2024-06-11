@@ -3,14 +3,13 @@
 import React from "react";
 import MagicButton from "../../components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
-import { socialMedia } from "@/data";
 import Logo from "../../components/ui/Logo";
 import Copyright from "../../components/Copyright";
 import { Routes } from "@/app/routes";
 
 const Footer = () => {
   return (
-    <footer className="w-full py-20 lg:mt-12 pb-50 z-0" id="contact">
+    <footer className="w-full pt-20 lg:mt-12 z-0" id="contact">
       <div className="w-full absolute left-0 bottom-0 min-h-96">
         <img
           src="/footer-grid.svg"

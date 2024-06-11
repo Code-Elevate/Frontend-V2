@@ -1,7 +1,4 @@
-"use client";
-
 import { ContestData } from "@/types/contest";
-import { useAuth } from "../providers/auth";
 import ApiRoutes from "./api_routes";
 
 export type ContestDataResponse = {
@@ -12,24 +9,28 @@ export type ContestDataResponse = {
 };
 
 export const getContests = async (
-  isAuthenticated: boolean,
   token: string | null
 ): Promise<ContestDataResponse | null> => {
-  const response = await fetch(ApiRoutes.CONTESTS, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(isAuthenticated && { "x-auth-token": token! }),
-    },
-    next: {
-      revalidate: 10000,
-    },
-  });
+  try {
+    const response = await fetch(ApiRoutes.CONTESTS, {
+      headers: {
+        "Content-Type": "application/json",
+        ...(token && { "x-auth-token": token }),
+      },
+      next: {
+        revalidate: 10000,
+      },
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return null;
+    }
+
+    return data as ContestDataResponse;
+  } catch (error) {
+    console.error(error);
     return null;
   }
-
-  return data as ContestDataResponse;
 };

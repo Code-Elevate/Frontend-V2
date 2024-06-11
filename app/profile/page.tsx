@@ -1,19 +1,22 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useAuth } from "@/utils/providers/auth";
+
 import { useRouter } from "next/navigation";
 import { Routes } from "../routes";
+import { useCookies } from "react-cookie";
 
 const Profile = () => {
-  const isAuthenticated = useAuth((state) => state.isAuthenticated);
-  const user = useAuth((state) => state.user);
+  const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);
+
+  const isAuthenticated = cookies["token"] ? true : false;
+  const user = cookies["user"] as string;
 
   const router = useRouter();
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace(`${Routes.PROFILE}/${user?.id}`);
+      router.replace(`${Routes.PROFILE}/${user}`);
     } else {
       router.replace(Routes.LOGIN);
     }

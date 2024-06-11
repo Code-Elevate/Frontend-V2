@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 import { Label } from "@/components/ui/Label";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/utils/cn";
@@ -11,24 +12,17 @@ import MagicButton from "@/components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
 import Link from "next/link";
 import { Routes, navItems } from "@/app/routes";
-import { useAuth } from "@/utils/providers/auth";
 import { IoClose } from "react-icons/io5";
 import { login } from "@/utils/services/auth";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordInput } from "@/components/ui/PasswordInput";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const router = useRouter();
+  const redirect = useSearchParams().get("redirect");
 
-  const isAuthenticated = useAuth((state) => state.isAuthenticated);
-  const setToken = useAuth((state) => state.setToken);
-  const setUser = useAuth((state) => state.setUser);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.replace(Routes.HOME);
-    }
-  }, [isAuthenticated]);
+  const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,10 +62,13 @@ const Login = () => {
       return;
     }
 
-    setToken(response.headers.get("x-auth-token"));
-    setUser(data.user);
+    setCookies("token", response.headers.get("x-auth-token"));
+    setCookies("user", data.user.id);
 
-    router.replace(Routes.HOME);
+    localStorage.setItem("token", response.headers.get("x-auth-token")!);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    router.replace(redirect || Routes.DASHBOARD);
 
     toast.success(`Welcome back, ${data.user.name}`, {
       id: toastId,
@@ -84,7 +81,7 @@ const Login = () => {
   };
 
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 py-20 overflow-hidden">
+    <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 pt-20 pb-8 overflow-hidden">
       <div className="max-w-7xl w-full">
         <div className="h-screen w-full dark:bg-black-100 bg-white dark:bg-grid-white/[0.03] bg-grid-black/[0.2] flex items-center justify-center absolute top-0 left-0 z-0">
           <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
@@ -130,7 +127,11 @@ const Login = () => {
                 Don&apos;t have an account?
               </p>
               <Link
-                href={Routes.REGISTER}
+                href={
+                  redirect
+                    ? `${Routes.REGISTER}?redirect=${redirect}`
+                    : Routes.REGISTER
+                }
                 className="text-sm font-medium text-purple hover:underline"
               >
                 Register
