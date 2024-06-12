@@ -19,7 +19,7 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col items-center">
-        <Logo otherClasses="opacity-75 mb-20 scale-[250%]" color="purple" />
+        <Logo otherClasses="mb-20 scale-[250%]" color="#CBACF9" />
 
         <h1 className="heading lg:max-w-[45vw]">
           Ready to take your<span className="text-purple"> coding skills </span>
