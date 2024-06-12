@@ -1,24 +1,29 @@
+"use server";
+
 import { ContestData } from "@/types/contest";
 import ApiRoutes from "./api_routes";
+import { cookies } from "next/headers";
 
 export type ContestDataResponse = {
-  users_running: ContestData[] | null;
+  users_running: ContestData[];
   upcoming: ContestData[];
   running: ContestData[];
   past: ContestData[];
 };
 
-export const getContests = async (
-  token: string | null
-): Promise<ContestDataResponse | null> => {
+export const getContests = async (): Promise<ContestDataResponse | null> => {
   try {
+    const useCookies = cookies();
+
     const response = await fetch(ApiRoutes.CONTESTS, {
       headers: {
         "Content-Type": "application/json",
-        ...(token && { "x-auth-token": token }),
+        ...(useCookies.has("token") && {
+          "x-auth-token": useCookies.get("token")?.value,
+        }),
       },
       next: {
-        revalidate: 10000,
+        revalidate: 60,
       },
     });
 

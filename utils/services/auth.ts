@@ -9,7 +9,6 @@ export const register = async (
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Sec-Fetch-Site": "cross-site",
     },
     body: JSON.stringify({ name, email, password }),
   });

@@ -81,7 +81,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} sortColumn={sortColumn} />
-      <div className="rounded-md border">
+      <div className="rounded-md border-b border-t">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -134,7 +134,7 @@ export function DataTable<TData, TValue>({
       {table.getRowModel().rows?.length ? (
         <DataTablePagination table={table} />
       ) : (
-        <div className="h-8" />
+        <div />
       )}
     </div>
   );

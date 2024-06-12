@@ -81,8 +81,6 @@ const Register = () => {
 
     setCookies("token", response.headers.get("x-auth-token"));
     setCookies("user", data.user.id);
-
-    localStorage.setItem("token", response.headers.get("x-auth-token")!);
     localStorage.setItem("user", JSON.stringify(data.user));
 
     router.replace(redirect || Routes.DASHBOARD);

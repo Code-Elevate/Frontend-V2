@@ -13,7 +13,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
+import { Link, MoreHorizontal } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 const routeToContest = (id: string) => {
   window.open(`${Routes.CONTESTS}/${id}`);
@@ -117,23 +118,42 @@ const pastColumns: ColumnDef<ContestData>[] = [
   },
 ];
 
+{
+  /* <div className="flex flex-col gap-8 my-4 relative">
+  <div className="flex justify-start">
+    <h1 className="sub-heading items-start">
+      Your registered running contests
+    </h1>
+  </div>
+  {yourRunningContests ? (
+    <DataTable columns={pastColumns} data={yourRunningContests} />
+  ) : (
+    <DataTableLoading columnCount={6} rowCount={1} />
+  )}
+</div>; */
+}
+
 const YourRunningContests = ({
   yourRunningContests,
 }: {
   yourRunningContests: ContestData[] | undefined;
 }) => {
   return (
-    <div className="flex flex-col gap-8 my-4 relative">
-      <div className="flex justify-start">
-        <h1 className="heading items-start">
-          Your registered running contests
-        </h1>
-      </div>
-      {yourRunningContests ? (
-        <DataTable columns={pastColumns} data={yourRunningContests} />
-      ) : (
-        <DataTableLoading columnCount={6} rowCount={1} />
-      )}
+    <div className="relative my-4 mb-10">
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between my-3">
+          <CardTitle className="font-medium">
+            Your registered running contests
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {yourRunningContests ? (
+            <DataTable columns={pastColumns} data={yourRunningContests} />
+          ) : (
+            <DataTableLoading columnCount={6} rowCount={1} />
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };

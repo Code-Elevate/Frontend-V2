@@ -19,7 +19,6 @@ const Profile = ({ params }: { params: { id: string } }) => {
   const handleLogout = () => {
     removeCookies("token");
     removeCookies("user");
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
 
     router.replace(Routes.HOME);

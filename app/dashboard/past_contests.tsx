@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 const routeToContest = (id: string) => {
   window.open(`${Routes.CONTESTS}/${id}`);
@@ -152,19 +153,23 @@ const PastContests = ({
   pastContests: ContestData[] | undefined;
 }) => {
   return (
-    <div className="flex flex-col gap-8 my-4 relative">
-      <div className="flex justify-start">
-        <h1 className="heading items-start">Past contests</h1>
-      </div>
-      {pastContests ? (
-        <DataTable
-          columns={pastColumns}
-          data={pastContests}
-          hiddenColumns={["description", "endTime"]}
-        />
-      ) : (
-        <DataTableLoading columnCount={6} />
-      )}
+    <div className="relative my-4 mb-10">
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between my-3">
+          <CardTitle className="font-medium">Past contests</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {pastContests ? (
+            <DataTable
+              columns={pastColumns}
+              data={pastContests}
+              hiddenColumns={["description", "endTime"]}
+            />
+          ) : (
+            <DataTableLoading columnCount={6} />
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };

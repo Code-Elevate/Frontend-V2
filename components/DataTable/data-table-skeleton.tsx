@@ -25,7 +25,7 @@ export function DataTableLoading({
         </div>
         <Skeleton className="ml-auto hidden h-7 w-[70px] lg:flex" />
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border-b border-t">
         <Table>
           <TableHeader>
             {Array.from({ length: 1 }).map((_, i) => (

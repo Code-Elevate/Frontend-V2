@@ -1,41 +1,49 @@
 "use client";
 
-import Copyright from "@/components/Copyright";
-
 import React, { useEffect, useState } from "react";
 import { navItems, navTitles } from "../routes";
 import { getContests, ContestDataResponse } from "@/utils/services/dashboard";
 import { Navbar } from "@/components/Navbar";
 import PastContests from "./past_contests";
+import Copyright from "@/components/Copyright";
 import YourRunningContests from "./your_running_contests";
 import RunningContests from "./running_contests";
 import UpcommingContests from "./upcoming_contests";
-import { UserHistory, getUserHistory } from "@/utils/services/user";
+import {
+  UserDetails,
+  UserHistory,
+  getUserDetails,
+  getUserHistory,
+} from "@/utils/services/user";
 import { toast } from "sonner";
-import { useCookies } from "react-cookie";
+import Analytics from "./analytics";
 
 const Dashboard = () => {
   const [contestsData, setContestsData] = useState<ContestDataResponse | null>(
     null
   );
-  const [userHistory, setUserHistory] = useState<UserHistory | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  const [cookies, setCookies, removeCookies] = useCookies(["token"]);
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
   useEffect(() => {
-    Promise.all([
-      getContests(cookies["token"]),
-      getUserHistory(cookies["token"] as string),
-    ]).then(([contestsData, userHistory]) => {
-      setContestsData(contestsData);
-      setUserHistory(userHistory);
-      setLoading(false);
-
-      if (!contestsData || !userHistory) {
-        toast.error("Failed to fetch data");
+    const fetchContests = async () => {
+      const data = await getContests();
+      if (data) {
+        setContestsData(data);
+      } else {
+        toast.error("Failed to fetch contests");
       }
-    });
+    };
+
+    const fetchUserDetails = async () => {
+      const data = await getUserDetails();
+      if (data) {
+        setUserDetails(data);
+      } else {
+        toast.error("Failed to fetch user details");
+      }
+    };
+
+    Promise.all([fetchUserDetails(), fetchContests()]);
   }, []);
 
   const [hydrated, setHydrated] = React.useState(false);
@@ -52,23 +60,13 @@ const Dashboard = () => {
         </div>
 
         <Navbar navItems={navItems} current={navTitles.Home} />
-
-        {cookies["token"] && (
-          <YourRunningContests
-            yourRunningContests={
-              loading ? undefined : contestsData?.users_running || []
-            }
-          />
-        )}
-        <RunningContests
-          runningContests={loading ? undefined : contestsData?.running || []}
+        <Analytics userDetails={userDetails} />
+        <YourRunningContests
+          yourRunningContests={contestsData?.users_running}
         />
-        <UpcommingContests
-          upcommingContests={loading ? undefined : contestsData?.upcoming || []}
-        />
-        <PastContests
-          pastContests={loading ? undefined : contestsData?.past || []}
-        />
+        <RunningContests runningContests={contestsData?.running} />
+        <UpcommingContests upcommingContests={contestsData?.upcoming} />
+        <PastContests pastContests={contestsData?.past} />
         <Copyright />
       </div>
     </main>

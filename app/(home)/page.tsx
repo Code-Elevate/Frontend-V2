@@ -3,6 +3,8 @@ import { Navbar } from "@/components/Navbar";
 import Hero from "./Hero";
 import Grid from "./Grid";
 import Footer from "./Footer";
+import Steps from "./Steps";
+import Jobs from "./Jobs";
 
 export default async function Home() {
   return (
@@ -11,6 +13,8 @@ export default async function Home() {
         <Navbar navItems={navItems} current={navTitles.Home} />
         <Hero />
         <Grid />
+        <Steps />
+        <Jobs />
         <Footer />
       </div>
     </main>
