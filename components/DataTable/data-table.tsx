@@ -131,7 +131,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {table.getRowModel().rows?.length ? (
+      {table.getRowModel().rows?.length > 5 ? (
         <DataTablePagination table={table} />
       ) : (
         <div />

@@ -1,10 +1,10 @@
+import { Routes } from "@/app/routes";
 import Logo from "@/components/ui/Logo";
 import MagicButton from "@/components/ui/MagicButton";
 import React from "react";
 import { FaLocationArrow } from "react-icons/fa6";
-import { Routes } from "./routes";
 
-const NotFound = () => {
+const ContestNotFound = () => {
   return (
     <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 overflow-hidden pb-8">
       <div className="max-w-7xl w-full">
@@ -17,23 +17,23 @@ const NotFound = () => {
 
           <div className="flex justify-center relative my-20 z-50">
             <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
-              <h1 className="text-center font-bold leading-snug tracking-wide text-[40px] md:text-5xl lg:text-6xl text-purple py-6 mt-6">
+              <h1 className="text-center font-bold leading-snug tracking-wide text-[40px] md:text-5xl lg:text-6xl text-purple py-6 mt-10">
                 CodeElevate
               </h1>
 
-              <h1 className="text-center font-bold leading-snug tracking-wide text-[40px] md:text-5xl lg:text-6xl py-6">
-                404
+              <h1 className="text-center font-bold leading-snug tracking-wide text-[30px] md:text-4xl lg:text-5xl py-6">
+                Contest Not Found
               </h1>
 
-              <p className="text-center mb-4 text-sm md:text-lg lg:text-2xl">
-                The page you are looking for does not exist.
+              <p className="text-center mb-4 text-sm md:text-lg lg:text-xl">
+                The contest you are looking for does not exist.
               </p>
 
               <MagicButton
-                title="Go back to home"
+                title="Go back to contests"
                 icon={<FaLocationArrow />}
                 position="right"
-                linkTo={Routes.HOME}
+                linkTo={Routes.CONTESTS}
                 otherClasses="!bg-[#161A31]"
               />
             </div>
@@ -44,4 +44,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default ContestNotFound;

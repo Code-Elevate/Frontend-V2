@@ -2,7 +2,7 @@ import { navItems, navTitles } from "../routes";
 import { Navbar } from "@/components/Navbar";
 import Hero from "./Hero";
 import Grid from "./Grid";
-import Footer from "./Footer";
+import FooterCTA from "./FooterCTA";
 import Steps from "./Steps";
 import Jobs from "./Jobs";
 
@@ -15,7 +15,7 @@ export default async function Home() {
         <Grid />
         <Steps />
         <Jobs />
-        <Footer />
+        <FooterCTA />
       </div>
     </main>
   );

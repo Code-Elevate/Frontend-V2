@@ -4,7 +4,6 @@ import { DataTableLoading } from "@/components/DataTable/data-table-skeleton";
 import { Button } from "@/components/ui/button";
 import { ContestData } from "@/types/contest";
 import { ColumnDef } from "@tanstack/react-table";
-import { Routes } from "../routes";
 import { formattedDateTime } from "@/utils/datetime";
 import {
   DropdownMenu,
@@ -16,20 +15,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  routeToContest,
+  routeToProfile,
+  routeToLeaderboard,
+} from "../utils/navigate";
 
-const routeToContest = (id: string) => {
-  window.open(`${Routes.CONTESTS}/${id}`);
-};
-
-const routeToLeaderboard = (id: string) => {
-  window.open(`${Routes.CONTESTS}/${id}/leaderboard`);
-};
-
-const routeToProfile = (id: string) => {
-  window.open(`${Routes.PROFILE}/${id}`);
-};
-
-const pastColumns: ColumnDef<ContestData>[] = [
+const columns: ColumnDef<ContestData>[] = [
   {
     accessorKey: "id",
     header: "Contest ID",
@@ -161,7 +153,7 @@ const PastContests = ({
         <CardContent>
           {pastContests ? (
             <DataTable
-              columns={pastColumns}
+              columns={columns}
               data={pastContests}
               hiddenColumns={["description", "endTime"]}
             />

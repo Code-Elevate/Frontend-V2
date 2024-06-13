@@ -4,27 +4,26 @@ import { DataTableLoading } from "@/components/DataTable/data-table-skeleton";
 import { Button } from "@/components/ui/button";
 import { ContestData } from "@/types/contest";
 import { ColumnDef } from "@tanstack/react-table";
-import { Routes } from "../routes";
+import { Routes } from "../app/routes";
 import { formattedDateTime } from "@/utils/datetime";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  routeToContest,
+  routeToProfile,
+  routeToLeaderboard,
+  routeToParticipate,
+} from "../utils/navigate";
 
-const routeToContest = (id: string) => {
-  window.open(`${Routes.CONTESTS}/${id}`);
-};
-
-const routeToLeaderboard = (id: string) => {
-  window.open(`${Routes.CONTESTS}/${id}/leaderboard`);
-};
-
-const pastColumns: ColumnDef<ContestData>[] = [
+const columns: ColumnDef<ContestData>[] = [
   {
     accessorKey: "id",
     header: "Contest ID",
@@ -42,15 +41,13 @@ const pastColumns: ColumnDef<ContestData>[] = [
     cell: ({ row }) => {
       const contest = row.original;
       return (
-        <div className="text-left">
-          <Button
-            variant="link"
-            className="p-0"
-            onClick={() => routeToContest(contest.id)}
-          >
-            {contest.id}
-          </Button>
-        </div>
+        <Button
+          variant="link"
+          className="p-0"
+          onClick={() => routeToContest(contest.id)}
+        >
+          {contest.id}
+        </Button>
       );
     },
   },
@@ -91,6 +88,27 @@ const pastColumns: ColumnDef<ContestData>[] = [
     header: "Duration",
   },
   {
+    accessorKey: "organizers",
+    header: "Organizers",
+    cell: ({ row }) => {
+      const organizers = row.getValue("organizers") as string[];
+      return (
+        <div className="flex flex-col gap-[2px] flex-shrink justify-start items-start">
+          {organizers.map((organizer) => (
+            <Button
+              key={organizer}
+              variant="link"
+              className="p-0 h-auto"
+              onClick={() => routeToProfile(organizer)}
+            >
+              {organizer}
+            </Button>
+          ))}
+        </div>
+      );
+    },
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const contest = row.original;
@@ -104,12 +122,17 @@ const pastColumns: ColumnDef<ContestData>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Description</DropdownMenuLabel>
+            <p className="relative flex px-2 py-1.5 text-sm items-start">
+              {contest.description}
+            </p>
+            <DropdownMenuSeparator className="h-[2px]" />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={() => routeToContest(contest.id)}>
               Show details
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => routeToLeaderboard(contest.id)}>
-              Show Leaderboard
+            <DropdownMenuItem onClick={() => routeToParticipate(contest.id)}>
+              Participate
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -131,7 +154,11 @@ const UpcommingContests = ({
         </CardHeader>
         <CardContent>
           {upcommingContests ? (
-            <DataTable columns={pastColumns} data={upcommingContests} />
+            <DataTable
+              columns={columns}
+              data={upcommingContests}
+              hiddenColumns={["description", "endTime"]}
+            />
           ) : (
             <DataTableLoading columnCount={6} rowCount={4} />
           )}

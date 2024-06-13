@@ -21,7 +21,7 @@ const Profile = ({ params }: { params: { id: string } }) => {
     removeCookies("user");
     localStorage.removeItem("user");
 
-    router.replace(Routes.HOME);
+    router.push(Routes.HOME);
   };
 
   return (

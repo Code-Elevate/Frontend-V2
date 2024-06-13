@@ -9,7 +9,7 @@ const Logo = ({
   color?: "#FFFFFF" | "#CBACF9";
 }) => {
   return (
-    <div className={`relative z-50 ${otherClasses}`}>
+    <div className={`flex items-center justify-center z-50 ${otherClasses}`}>
       <IoIosCode
         className={`w-20 h-20`}
         style={{
@@ -17,9 +17,9 @@ const Logo = ({
         }}
       />
       <div
-        className="h-20 absolute top-0 right-4"
+        className="h-20 absolute top-0"
         style={{
-          transform: "translateY(calc(50% - 2px))",
+          transform: "translateY(calc(50% - 2px)) translateX(50%)",
         }}
       >
         <div

@@ -4,19 +4,14 @@ import React, { useEffect, useState } from "react";
 import { navItems, navTitles } from "../routes";
 import { getContests, ContestDataResponse } from "@/utils/services/dashboard";
 import { Navbar } from "@/components/Navbar";
-import PastContests from "./past_contests";
-import Copyright from "@/components/Copyright";
-import YourRunningContests from "./your_running_contests";
-import RunningContests from "./running_contests";
-import UpcommingContests from "./upcoming_contests";
-import {
-  UserDetails,
-  UserHistory,
-  getUserDetails,
-  getUserHistory,
-} from "@/utils/services/user";
+import PastContests from "../../components/PastContests";
+import YourRunningContests from "../../components/YourRunningContests";
+import RunningContests from "../../components/RunningContests";
+import UpcommingContests from "../../components/UpcomingContests";
+import Analytics from "./Analytics";
+import { UserDetails, getUserDetails } from "@/utils/services/user";
 import { toast } from "sonner";
-import Analytics from "./analytics";
+import Footer from "@/components/Footer";
 
 const Dashboard = () => {
   const [contestsData, setContestsData] = useState<ContestDataResponse | null>(
@@ -39,7 +34,7 @@ const Dashboard = () => {
       if (data) {
         setUserDetails(data);
       } else {
-        toast.error("Failed to fetch user details");
+        toast.error("Failed to fetch user analytics");
       }
     };
 
@@ -67,7 +62,7 @@ const Dashboard = () => {
         <RunningContests runningContests={contestsData?.running} />
         <UpcommingContests upcommingContests={contestsData?.upcoming} />
         <PastContests pastContests={contestsData?.past} />
-        <Copyright />
+        <Footer />
       </div>
     </main>
   );

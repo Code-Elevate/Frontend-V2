@@ -2,20 +2,43 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Routes that only authenticated users can access
 const authRoutes = ["/dashboard", "/profile"];
+const authRoutesWithId = ["/contests/:id/register"];
 
 // Routes that only non-authenticated users can access
 const nonAuthRoutes = ["/login", "/register"];
 
 const isAuthorised = (request: NextRequest) => {
-  if (!authRoutes.some((route) => request.nextUrl.pathname.startsWith(route))) {
-    return true;
-  }
-
   if (
     authRoutes.some((route) => request.nextUrl.pathname.startsWith(route)) &&
     !request.cookies.has("token")
   ) {
     return false;
+  }
+
+  for (let i = 0; i < authRoutesWithId.length; i++) {
+    const route = authRoutesWithId[i];
+    const routeParts = route.split("/");
+    const requestParts = request.nextUrl.pathname.split("/");
+
+    if (routeParts.length !== requestParts.length) {
+      continue;
+    }
+
+    let match = true;
+    for (let i = 0; i < routeParts.length; i++) {
+      if (routeParts[i] === ":id") {
+        continue;
+      }
+
+      if (routeParts[i] !== requestParts[i]) {
+        match = false;
+        break;
+      }
+    }
+
+    if (match && !request.cookies.has("token")) {
+      return false;
+    }
   }
 
   return true;
@@ -61,5 +84,12 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/register", "/dashboard", "/profile"],
+  matcher: [
+    "/",
+    "/login",
+    "/register",
+    "/dashboard",
+    "/profile",
+    "/contests/:path*",
+  ],
 };

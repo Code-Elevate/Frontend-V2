@@ -7,7 +7,6 @@ import { cn } from "@/utils/cn";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { Navbar } from "@/components/Navbar";
 import { toast } from "sonner";
-import Copyright from "@/components/Copyright";
 import MagicButton from "@/components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
 import Link from "next/link";
@@ -17,6 +16,7 @@ import { login } from "@/utils/services/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { useCookies } from "react-cookie";
+import Footer from "@/components/Footer";
 
 const Login = () => {
   const router = useRouter();
@@ -66,7 +66,7 @@ const Login = () => {
     setCookies("user", data.user.id);
     localStorage.setItem("user", JSON.stringify(data.user));
 
-    router.replace(redirect || Routes.DASHBOARD);
+    window.location.href = redirect || Routes.DASHBOARD;
 
     toast.success(`Welcome back, ${data.user.name}`, {
       id: toastId,
@@ -153,7 +153,7 @@ const Login = () => {
             </div>
           </form>
         </div>
-        <Copyright />
+        <Footer />
       </div>
     </main>
   );

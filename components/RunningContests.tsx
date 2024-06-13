@@ -4,17 +4,19 @@ import { DataTableLoading } from "@/components/DataTable/data-table-skeleton";
 import { Button } from "@/components/ui/button";
 import { ContestData } from "@/types/contest";
 import { ColumnDef } from "@tanstack/react-table";
-import { Routes } from "../routes";
+import { Routes } from "../app/routes";
 import { formattedDateTime } from "@/utils/datetime";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { routeToParticipate } from "@/utils/navigate";
 
 const routeToContest = (id: string) => {
   window.open(`${Routes.CONTESTS}/${id}`);
@@ -24,7 +26,7 @@ const routeToLeaderboard = (id: string) => {
   window.open(`${Routes.CONTESTS}/${id}/leaderboard`);
 };
 
-const pastColumns: ColumnDef<ContestData>[] = [
+const columns: ColumnDef<ContestData>[] = [
   {
     accessorKey: "id",
     header: "Contest ID",
@@ -104,12 +106,17 @@ const pastColumns: ColumnDef<ContestData>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Description</DropdownMenuLabel>
+            <p className="relative flex px-2 py-1.5 text-sm items-start">
+              {contest.description}
+            </p>
+            <DropdownMenuSeparator className="h-[2px]" />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={() => routeToContest(contest.id)}>
               Show details
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => routeToLeaderboard(contest.id)}>
-              Show Leaderboard
+            <DropdownMenuItem onClick={() => routeToParticipate(contest.id)}>
+              Participate
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -118,37 +125,20 @@ const pastColumns: ColumnDef<ContestData>[] = [
   },
 ];
 
-{
-  /* <div className="flex flex-col gap-8 my-4 relative">
-  <div className="flex justify-start">
-    <h1 className="sub-heading items-start">
-      Your registered running contests
-    </h1>
-  </div>
-  {yourRunningContests ? (
-    <DataTable columns={pastColumns} data={yourRunningContests} />
-  ) : (
-    <DataTableLoading columnCount={6} rowCount={1} />
-  )}
-</div>; */
-}
-
-const YourRunningContests = ({
-  yourRunningContests,
+const RunningContests = ({
+  runningContests,
 }: {
-  yourRunningContests: ContestData[] | undefined;
+  runningContests: ContestData[] | undefined | null;
 }) => {
   return (
     <div className="relative my-4 mb-10">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between my-3">
-          <CardTitle className="font-medium">
-            Your registered running contests
-          </CardTitle>
+          <CardTitle className="font-medium">Running contests</CardTitle>
         </CardHeader>
         <CardContent>
-          {yourRunningContests ? (
-            <DataTable columns={pastColumns} data={yourRunningContests} />
+          {runningContests ? (
+            <DataTable columns={columns} data={runningContests} />
           ) : (
             <DataTableLoading columnCount={6} rowCount={1} />
           )}
@@ -158,4 +148,4 @@ const YourRunningContests = ({
   );
 };
 
-export default YourRunningContests;
+export default RunningContests;

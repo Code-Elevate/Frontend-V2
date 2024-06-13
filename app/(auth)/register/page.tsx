@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/Input";
 import { cn } from "@/utils/cn";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { Navbar } from "@/components/Navbar";
-import Copyright from "@/components/Copyright";
 import MagicButton from "@/components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
 import Link from "next/link";
@@ -17,6 +16,7 @@ import { IoClose } from "react-icons/io5";
 import { toast } from "sonner";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { useCookies } from "react-cookie";
+import Footer from "@/components/Footer";
 
 const Register = () => {
   const router = useRouter();
@@ -181,7 +181,7 @@ const Register = () => {
           </form>
         </div>
 
-        <Copyright />
+        <Footer />
       </div>
     </main>
   );

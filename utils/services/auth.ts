@@ -1,4 +1,4 @@
-import ApiRoutes from "./api_routes";
+import ApiRoutes from "./api";
 
 export const register = async (
   name: string,
