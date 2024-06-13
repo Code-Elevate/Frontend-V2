@@ -25,7 +25,11 @@ const AnalyticsCard = (props: {
   );
 };
 
-const Analytics = ({ userDetails }: { userDetails: UserDetails | null }) => {
+const UserAnalytics = ({
+  userDetails,
+}: {
+  userDetails: UserDetails | null;
+}) => {
   return (
     <div className="relative my-4 mb-10">
       <Card>
@@ -79,4 +83,4 @@ const Analytics = ({ userDetails }: { userDetails: UserDetails | null }) => {
   );
 };
 
-export default Analytics;
+export default UserAnalytics;

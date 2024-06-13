@@ -8,10 +8,10 @@ import PastContests from "../../components/PastContests";
 import YourRunningContests from "../../components/YourRunningContests";
 import RunningContests from "../../components/RunningContests";
 import UpcommingContests from "../../components/UpcomingContests";
-import Analytics from "./Analytics";
 import { UserDetails, getUserDetails } from "@/utils/services/user";
 import { toast } from "sonner";
 import Footer from "@/components/Footer";
+import UserAnalytics from "./UserAnalytics";
 
 const Dashboard = () => {
   const [contestsData, setContestsData] = useState<ContestDataResponse | null>(
@@ -55,7 +55,7 @@ const Dashboard = () => {
         </div>
 
         <Navbar navItems={navItems} current={navTitles.Home} />
-        <Analytics userDetails={userDetails} />
+        <UserAnalytics userDetails={userDetails} />
         <YourRunningContests
           yourRunningContests={contestsData?.users_running}
         />
