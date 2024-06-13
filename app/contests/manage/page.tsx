@@ -1,30 +1,37 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { navItems, navTitles } from "../routes";
-import { Navbar } from "@/components/Navbar";
+import { navItems, navTitles } from "@/app/routes";
 import Footer from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
 import PastContests from "@/components/PastContests";
 import RunningContests from "@/components/RunningContests";
 import UpcommingContests from "@/components/UpcomingContests";
-import YourRunningContests from "@/components/YourRunningContests";
-import { ContestDataResponse, getContests } from "@/utils/services/dashboard";
-import { useCookies } from "react-cookie";
+import ManageContestsTable from "@/components/ManageContests";
+import {
+  ManageContestDataResponse,
+  getManageContests,
+} from "@/utils/services/manageContests";
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import ManageContests from "./ManageContests";
+import CreateContest from "./CreateContest";
+import { ContestData } from "@/types/contest";
 
-const Contests = () => {
-  const [cookies] = useCookies(["token"]);
-
-  const [contestsData, setContestsData] = useState<ContestDataResponse | null>(
-    null
-  );
+const ManageContests = () => {
+  const [contestsData, setContestsData] = useState<ContestData[] | null>(null);
 
   useEffect(() => {
     const fetchContests = async () => {
-      const data = await getContests();
+      const data = await getManageContests();
       if (data) {
-        setContestsData(data);
+        let { upcoming, running, past } = data;
+        upcoming = upcoming.map((contest) => ({
+          ...contest,
+          status: "upcoming",
+        }));
+        running = running.map((contest) => ({ ...contest, status: "running" }));
+        past = past.map((contest) => ({ ...contest, status: "past" }));
+
+        setContestsData([...running, ...upcoming, ...past]);
       } else {
         toast.error("Failed to fetch contests");
       }
@@ -47,19 +54,12 @@ const Contests = () => {
         </div>
 
         <Navbar navItems={navItems} current={navTitles.Contests} />
-        <ManageContests />
-        {cookies.token && (
-          <YourRunningContests
-            yourRunningContests={contestsData?.users_running}
-          />
-        )}
-        <RunningContests runningContests={contestsData?.running} />
-        <UpcommingContests upcommingContests={contestsData?.upcoming} />
-        <PastContests pastContests={contestsData?.past} />
+        <CreateContest />
+        <ManageContestsTable yourContests={contestsData || []} />
         <Footer />
       </div>
     </main>
   );
 };
 
-export default Contests;
+export default ManageContests;

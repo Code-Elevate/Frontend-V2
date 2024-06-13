@@ -16,12 +16,19 @@ const Profile = ({ params }: { params: { id: string } }) => {
 
   const router = useRouter();
 
+  const [hydrated, setHydrated] = React.useState(false);
+  React.useEffect(() => {
+    setHydrated(true);
+  }, []);
+  if (!hydrated) return null;
+
   const handleLogout = () => {
     removeCookies("token");
     removeCookies("user");
     localStorage.removeItem("user");
 
-    router.push(Routes.HOME);
+    router.replace(Routes.HOME);
+    router.refresh();
   };
 
   return (

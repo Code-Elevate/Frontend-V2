@@ -7,6 +7,9 @@ export enum Routes {
   PROFILE = "/profile",
   REGISTER = "/register",
   LOGIN = "/login",
+
+  MANAGE_CONTESTS = CONTESTS + "/manage",
+  NEW_CONTEST = MANAGE_CONTESTS + "/new",
 }
 
 export enum navTitles {

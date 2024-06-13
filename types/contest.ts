@@ -6,4 +6,5 @@ export type ContestData = {
   endTime: string;
   duration: string;
   organizers: string[];
+  status?: "upcoming" | "running" | "past";
 };

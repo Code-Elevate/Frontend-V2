@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Routes } from "./app/routes";
 
 // Routes that only authenticated users can access
-const authRoutes = ["/dashboard", "/profile"];
-const authRoutesWithId = ["/contests/:id/register"];
+const authRoutes = [
+  Routes.DASHBOARD,
+  Routes.PROFILE,
+  Routes.MANAGE_CONTESTS,
+  Routes.MANAGE_CONTESTS,
+];
+const authRoutesWithId = [`${Routes.CONTESTS}/:id/register`];
 
 // Routes that only non-authenticated users can access
-const nonAuthRoutes = ["/login", "/register"];
+const nonAuthRoutes = [Routes.LOGIN, Routes.REGISTER];
 
 const isAuthorised = (request: NextRequest) => {
   if (
@@ -91,5 +97,6 @@ export const config = {
     "/dashboard",
     "/profile",
     "/contests/:path*",
+    "/contests/manage/:path*",
   ],
 };
