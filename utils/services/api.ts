@@ -1,7 +1,7 @@
 enum ApiRoutes {
   // Base URL
-  // _BASE = "https://code-elevate.gopalsaraf.com/api",
-  _BASE = "http://localhost:8080",
+  _BASE = "https://code-elevate.gopalsaraf.com/api",
+  // _BASE = "http://localhost:8080",
 
   // Auth Routes
   REGISTER = _BASE + "/users/register",

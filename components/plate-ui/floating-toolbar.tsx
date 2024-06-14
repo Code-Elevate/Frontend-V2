@@ -20,7 +20,8 @@ export const FloatingToolbar = withRef<
   }
 >(({ state, children, ...props }, componentRef) => {
   const floatingToolbarState = useFloatingToolbarState({
-    ...state,
+    editorId: "primary",
+    focusedEditorId: "primary",
     floatingOptions: {
       placement: "top",
       middleware: [
@@ -35,7 +36,6 @@ export const FloatingToolbar = withRef<
           ],
         }),
       ],
-      ...state?.floatingOptions,
     },
   });
 
