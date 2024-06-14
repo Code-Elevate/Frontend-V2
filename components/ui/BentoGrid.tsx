@@ -1,12 +1,13 @@
 "use client";
 
+import { FaLocationArrow } from "react-icons/fa6";
+
+import { Routes } from "@/app/routes";
 import { cn } from "@/utils/cn";
 
 import { BackgroundGradientAnimation } from "./GradientBg";
 import GridGlobe from "./GridGlobe";
 import MagicButton from "./MagicButton";
-import { FaLocationArrow } from "react-icons/fa6";
-import { Routes } from "@/app/routes";
 
 export const BentoGrid = ({
   className,
@@ -56,7 +57,6 @@ export const BentoGridItem = ({
         className
       )}
       style={{
-        background: "rgb(4,7,29)",
         backgroundColor:
           "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
       }}

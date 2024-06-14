@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import MagicButton from "../../components/ui/MagicButton";
 import { FaLocationArrow } from "react-icons/fa6";
-import Logo from "../../components/ui/Logo";
 
 import { Routes } from "@/app/routes";
 import Footer from "@/components/Footer";
+import Logo from "@/components/ui/Logo";
+import MagicButton from "@/components/ui/MagicButton";
 
 const FooterCTA = () => {
   return (
@@ -20,7 +20,7 @@ const FooterCTA = () => {
       </div>
 
       <div className="flex flex-col items-center">
-        <Logo otherClasses="mb-20 scale-[250%]" color="#CBACF9" />
+        <Logo otherClasses="mb-20 scale-[250%]" color="#B95CF4" />
 
         <h1 className="heading lg:max-w-[45vw]">
           Ready to take your<span className="text-purple"> coding skills </span>

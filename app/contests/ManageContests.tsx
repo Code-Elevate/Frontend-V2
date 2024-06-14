@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import React from "react";
-import { Routes } from "../routes";
+
+import { Routes } from "@/app/routes";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
 const ManageContests = () => {
   return (

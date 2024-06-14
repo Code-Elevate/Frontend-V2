@@ -1,5 +1,6 @@
-import { ThemeProvider } from "@/utils/providers/theme";
 import { Suspense } from "react";
+
+import { ThemeProvider } from "@/utils/providers/theme";
 
 export default function RootLayout({
   children,

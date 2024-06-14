@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
 import dynamic from "next/dynamic";
+import React from "react";
 
 const World = dynamic(() => import("./Globe").then((m) => m.World), {
   ssr: false,

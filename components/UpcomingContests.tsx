@@ -1,11 +1,10 @@
+import { MoreHorizontal } from "lucide-react";
 import React from "react";
+
 import { DataTable } from "@/components/DataTable/data-table";
 import { DataTableLoading } from "@/components/DataTable/data-table-skeleton";
 import { Button } from "@/components/ui/button";
-import { ContestData } from "@/types/contest";
-import { ColumnDef } from "@tanstack/react-table";
-import { Routes } from "../app/routes";
-import { formattedDateTime } from "@/utils/datetime";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,14 +13,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { ContestData } from "@/types/contest";
+import { formattedDateTime } from "@/utils/datetime";
 import {
   routeToContest,
-  routeToProfile,
-  routeToLeaderboard,
   routeToParticipate,
-} from "../utils/navigate";
+  routeToProfile,
+} from "@/utils/navigate";
+import { ColumnDef } from "@tanstack/react-table";
 
 const columns: ColumnDef<ContestData>[] = [
   {

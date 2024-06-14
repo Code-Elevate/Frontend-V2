@@ -1,5 +1,6 @@
-import { companies } from "@/data";
 import React from "react";
+
+import { companies } from "@/data";
 
 const Jobs = () => {
   return (

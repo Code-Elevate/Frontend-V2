@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
 import {
-  motion,
   AnimatePresence,
-  useScroll,
+  motion,
   useMotionValueEvent,
+  useScroll,
 } from "framer-motion";
-import { cn } from "@/utils/cn";
 import Link from "next/link";
-import { IoMenu, IoClose } from "react-icons/io5";
-import { Routes } from "@/app/routes";
-
+import React, { useState } from "react";
 import { useCookies } from "react-cookie";
+import { IoClose, IoMenu } from "react-icons/io5";
+
+import { Routes } from "@/app/routes";
+import { cn } from "@/utils/cn";
 
 export const Navbar = ({
   navItems,

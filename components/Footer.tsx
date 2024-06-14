@@ -1,9 +1,10 @@
 "use client";
 
-import { socialMedia } from "@/data";
 import React from "react";
-import Time from "./Time";
-import Logo from "./ui/Logo";
+
+import Time from "@/components/Time";
+import Logo from "@/components/ui/Logo";
+import { socialMedia } from "@/data";
 
 const Footer = () => {
   return (
@@ -14,7 +15,7 @@ const Footer = () => {
         </p>
 
         <div className="w-1/3">
-          <Logo otherClasses="scale-[50%] p-0 m-0" color="#CBACF9" />
+          <Logo otherClasses="scale-[50%] p-0 m-0" color="#B95CF4" />
         </div>
 
         <div className="w-1/3 flex items-center md:gap-3 gap-6 justify-center md:justify-end">

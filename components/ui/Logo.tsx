@@ -6,7 +6,7 @@ const Logo = ({
   color = "#FFFFFF",
 }: {
   otherClasses?: string;
-  color?: "#FFFFFF" | "#CBACF9";
+  color?: "#FFFFFF" | "#B95CF4";
 }) => {
   return (
     <div className={`flex items-center justify-center z-50 ${otherClasses}`}>

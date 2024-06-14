@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   motion,
   useAnimationFrame,
@@ -8,7 +7,7 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 import { cn } from "@/utils/cn";
 
@@ -49,7 +48,7 @@ export function Button({
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
-              "h-20 w-20 opacity-[0.8] bg-[radial-gradient(#CBACF9_40%_40%,transparent_60%)]",
+              "h-20 w-20 opacity-[0.8] bg-[radial-gradient(#B95CF4_40%_40%,transparent_60%)]",
               borderClassName
             )}
           />

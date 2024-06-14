@@ -1,10 +1,11 @@
+import Link from "next/link";
+import React from "react";
+
 import { Routes } from "@/app/routes";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ContestResponse } from "@/utils/services/contest";
-import Link from "next/link";
-import React from "react";
 
 const Organizers = ({ contest }: { contest: ContestResponse }) => {
   return (

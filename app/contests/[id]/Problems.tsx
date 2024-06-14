@@ -1,23 +1,24 @@
 "use client";
 
+import { MoreHorizontal } from "lucide-react";
+import React from "react";
+
+import { DataTable } from "@/components/DataTable/data-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { routeToProblem, routeToProblemSubmissions } from "@/utils/navigate";
-import {
-  ContestProblemResponse,
-  ContestResponse,
-} from "@/utils/services/contest";
-import { ColumnDef } from "@tanstack/react-table";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import React from "react";
-import { MoreHorizontal } from "lucide-react";
-import { DataTable } from "@/components/DataTable/data-table";
+import { routeToProblem, routeToProblemSubmissions } from "@/utils/navigate";
+import {
+  ContestProblemResponse,
+  ContestResponse,
+} from "@/utils/services/contest";
+import { ColumnDef } from "@tanstack/react-table";
 
 const problemsColumns: ColumnDef<ContestProblemResponse>[] = [
   {

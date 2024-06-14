@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { formattedDateTime } from "@/utils/datetime";
-import { ContestResponse } from "@/utils/services/contest";
 import { Calendar, CheckIcon, History } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+
+import Heading from "@/components/Heading";
+import { Button } from "@/components/ui/button";
+import { formattedDateTime } from "@/utils/datetime";
+import { ContestResponse } from "@/utils/services/contest";
 
 const Header = ({ contest }: { contest: ContestResponse }) => {
   const { date: startDate, time: startTime } = formattedDateTime(
@@ -12,12 +14,10 @@ const Header = ({ contest }: { contest: ContestResponse }) => {
   const { date: endDate, time: endTime } = formattedDateTime(contest.endTime);
 
   return (
-    <div className="w-full pt-12 md:pt-24 lg:pt-32 my-4 mb-10">
+    <div className="w-full mb-10">
       <div className="grid gap-4 md:grid-cols-2 md:gap-16">
         <div>
-          <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
-            {contest.title}
-          </h1>
+          <Heading>{contest.title}</Heading>
           <div className="flex items-center gap-4 mt-4">
             {contest.status === "running" && <Running />}
             {contest.status === "upcoming" && <Upcoming />}

@@ -1,8 +1,9 @@
+import React from "react";
+import { FaLocationArrow } from "react-icons/fa6";
+
 import { Routes } from "@/app/routes";
 import Logo from "@/components/ui/Logo";
 import MagicButton from "@/components/ui/MagicButton";
-import React from "react";
-import { FaLocationArrow } from "react-icons/fa6";
 
 const ContestNotFound = () => {
   return (

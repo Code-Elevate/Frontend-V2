@@ -1,7 +1,7 @@
 import React from "react";
 
-import { steps } from "@/data";
 import { Button } from "@/components/ui/MovingBorder";
+import { steps } from "@/data";
 
 const Steps = () => {
   return (

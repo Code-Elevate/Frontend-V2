@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
-
 import { useRouter } from "next/navigation";
-import { Routes } from "../routes";
+import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
+
+import { Routes } from "@/app/routes";
 
 const Profile = () => {
   const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);

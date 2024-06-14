@@ -1,5 +1,6 @@
-import Logo from "@/components/ui/Logo";
 import React from "react";
+
+import Logo from "@/components/ui/Logo";
 
 const Loading = () => {
   return (

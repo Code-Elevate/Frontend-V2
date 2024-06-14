@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
-
 import { useRouter } from "next/navigation";
-import MagicButton from "@/components/ui/MagicButton";
-import { FaLocationArrow } from "react-icons/fa6";
-import { Routes } from "@/app/routes";
+import React from "react";
 import { useCookies } from "react-cookie";
+import { FaLocationArrow } from "react-icons/fa6";
+
+import { Routes } from "@/app/routes";
+import MagicButton from "@/components/ui/MagicButton";
 
 const Profile = ({ params }: { params: { id: string } }) => {
   const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);

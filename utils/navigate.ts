@@ -1,4 +1,4 @@
-import { Routes } from "../app/routes";
+import { Routes } from "@/app/routes";
 
 export const routeToContest = (id: string) => {
   window.location.href = `${Routes.CONTESTS}/${id}`;

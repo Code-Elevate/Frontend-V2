@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Routes } from "./app/routes";
+
+import { Routes } from "@/app/routes";
 
 // Routes that only authenticated users can access
 const authRoutes = [

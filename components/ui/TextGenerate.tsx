@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import { motion, stagger, useAnimate } from "framer-motion";
+import { useEffect } from "react";
+
 import { cn } from "@/utils/cn";
 
 export const TextGenerateEffect = ({

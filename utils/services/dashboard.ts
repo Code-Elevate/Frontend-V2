@@ -1,8 +1,10 @@
 "use server";
 
-import { ContestData } from "@/types/contest";
-import ApiRoutes from "./api";
 import { cookies } from "next/headers";
+
+import { ContestData } from "@/types/contest";
+
+import ApiRoutes from "./api";
 
 export type ContestDataResponse = {
   users_running: ContestData[];

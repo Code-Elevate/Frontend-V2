@@ -1,6 +1,7 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { ContestResponse } from "@/utils/services/contest";
 import React from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ContestResponse } from "@/utils/services/contest";
 
 const Penalty = ({ contest }: { contest: ContestResponse }) => {
   return (

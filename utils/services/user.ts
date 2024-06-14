@@ -1,8 +1,10 @@
 "use server";
 
-import { User } from "@/types/user";
-import ApiRoutes from "./api";
 import { cookies } from "next/headers";
+
+import { User } from "@/types/user";
+
+import ApiRoutes from "./api";
 
 export type UserDetails = {
   id: string;

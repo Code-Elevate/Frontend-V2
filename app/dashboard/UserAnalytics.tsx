@@ -1,15 +1,16 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { UserDetails } from "@/utils/services/user";
 import {
-  UsersIcon,
-  TrophyIcon,
   CodeIcon,
   LaptopMinimal,
   Medal,
   Sigma,
+  TrophyIcon,
+  UsersIcon,
 } from "lucide-react";
 import React from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { UserDetails } from "@/utils/services/user";
 
 const AnalyticsCard = (props: {
   title: string;
