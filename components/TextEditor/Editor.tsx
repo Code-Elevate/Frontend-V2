@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -20,14 +20,19 @@ import { plugins } from "./plugins";
 
 export function TextEditor({
   id,
+  name,
+  placeholder,
   value,
-  setValue,
+  onChange,
 }: {
   id?: string;
+  name?: string;
+  placeholder?: string;
   value?: any;
-  setValue?: any;
+  onChange?: any;
 }) {
   const containerRef = useRef(null);
+  const [placeholderValue, setPlaceholderValue] = useState(placeholder);
 
   return (
     <TooltipProvider
@@ -37,14 +42,7 @@ export function TextEditor({
     >
       <DndProvider backend={HTML5Backend}>
         <CommentsProvider>
-          <Plate
-            plugins={plugins}
-            id={id}
-            value={value}
-            onChange={(newValue: any) => {
-              setValue(newValue);
-            }}
-          >
+          <Plate plugins={plugins} id={id} value={value} onChange={onChange}>
             <div
               ref={containerRef}
               className={cn(
@@ -56,7 +54,15 @@ export function TextEditor({
                 <FixedToolbarButtons />
               </FixedToolbar>
 
-              <Editor focusRing={false} className="border-none" />
+              <Editor
+                focusRing={false}
+                className="border-none pt-4"
+                id={id}
+                name={name}
+                placeholder={placeholderValue}
+                onClick={() => setPlaceholderValue("")}
+                onBlur={() => setPlaceholderValue(placeholder)}
+              />
 
               <FloatingToolbar>
                 <FloatingToolbarButtons />

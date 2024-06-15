@@ -9,7 +9,7 @@ const LabelInputContainer = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("flex flex-col space-y-2 w-full mb-4", className)}>
+    <div className={cn("flex flex-col space-y-2 w-full mb-6", className)}>
       {children}
     </div>
   );

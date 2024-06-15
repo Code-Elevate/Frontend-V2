@@ -13,6 +13,7 @@ export type ContestResponse = {
   id: string;
   title: string;
   description: string;
+  longDescription: string;
   status: string;
   startTime: string;
   endTime: string;

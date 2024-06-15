@@ -27,8 +27,9 @@ const Profile = ({ params }: { params: { id: string } }) => {
     removeCookies("user");
     localStorage.removeItem("user");
 
-    router.replace(Routes.HOME);
-    router.refresh();
+    setTimeout(() => {
+      router.replace(Routes.HOME);
+    }, 100);
   };
 
   return (

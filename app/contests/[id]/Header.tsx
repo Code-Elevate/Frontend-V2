@@ -27,15 +27,16 @@ const Header = ({ contest }: { contest: ContestResponse }) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-start md:justify-end space-y-4">
+        <div className="flex flex-col items-start justify-center md:items-end space-y-4">
+          <p className="text-gray-400">{contest.description}</p>
           {(contest.status === "running" || contest.status === "upcoming") && (
             <Link href={`/contests/${contest.id}/register`}>
-              <Button>Register Now</Button>
+              <Button variant="secondary">Register Now</Button>
             </Link>
           )}
           {contest.status === "past" && (
             <Link href={`/contests/${contest.id}/leaderboard`}>
-              <Button>View Leaderboard</Button>
+              <Button variant="secondary">View Leaderboard</Button>
             </Link>
           )}
         </div>

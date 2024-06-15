@@ -42,7 +42,9 @@ const NavPath = () => {
                   <SlashIcon />
                 </BreadcrumbSeparator>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${item}`}>
+                  <BreadcrumbLink
+                    href={"/" + path.slice(0, index + 1).join("/")}
+                  >
                     {item.charAt(0).toUpperCase() + item.slice(1)}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
