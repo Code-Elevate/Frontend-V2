@@ -10,12 +10,12 @@ import { toast } from "sonner";
 
 import { Routes } from "@/app/routes";
 import Footer from "@/components/Footer";
+import LabelInputContainer from "@/components/LabelInputContainer";
 import MainPage from "@/components/MainPageHOC";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import MagicButton from "@/components/ui/MagicButton";
 import { PasswordInput } from "@/components/ui/PasswordInput";
-import { cn } from "@/utils/cn";
 import { register } from "@/utils/services/auth";
 import { IconBrandGoogle } from "@tabler/icons-react";
 
@@ -27,7 +27,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [cookies, setCookies, removeCookies] = useCookies(["token", "user"]);
+  const [__, setCookies] = useCookies(["token", "user"]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,7 +106,7 @@ const Register = () => {
         <h1 className="font-medium text-2xl">Register to CodeElevate</h1>
 
         <form className="my-8" onSubmit={handleSubmit}>
-          <LabelInputContainer className="mb-4">
+          <LabelInputContainer>
             <Label htmlFor="name">Name</Label>
             <Input
               id="name"
@@ -116,7 +116,7 @@ const Register = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
+          <LabelInputContainer>
             <Label htmlFor="email">Email Address</Label>
             <Input
               id="email"
@@ -126,7 +126,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
+          <LabelInputContainer>
             <Label htmlFor="password">Password</Label>
             <PasswordInput
               id="password"
@@ -185,20 +185,6 @@ const BottomGradient = () => {
       <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
       <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
     </>
-  );
-};
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
   );
 };
 
