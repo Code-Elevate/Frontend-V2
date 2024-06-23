@@ -15,20 +15,28 @@ const Header = ({ contest }: { contest: ContestResponse }) => {
 
   return (
     <div className="w-full mb-10">
-      <div className="grid gap-4 md:grid-cols-2 md:gap-16">
+      <div className="flex flex-col gap-8 md:flex-row md:justify-between md:items-center">
         <div>
           <Heading>{contest.title}</Heading>
-          <div className="flex items-center gap-4 mt-4">
+          <div className="flex items-start gap-4 mt-4">
             {contest.status === "running" && <Running />}
             {contest.status === "upcoming" && <Upcoming />}
             {contest.status === "past" && <Past />}
-            <div className="text-sm text-gray-400">
-              Starts: {startDate} {startTime} - Ends: {endDate} {endTime}
+            <div>
+              <div className="text-xs md:text-sm text-gray-400">
+                Starts: {startDate} {startTime} - Ends: {endDate} {endTime}
+              </div>
+              <div className="text-xs md:text-sm text-gray-400">
+                Duration - {contest.duration}
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-start justify-center md:items-end space-y-4">
-          <p className="text-gray-400">{contest.description}</p>
+        <div className="flex flex-col items-start justify-center md:items-end">
+          <p className="text-gray-200 mb-1">{contest.description}</p>
+          <p className="text-gray-400 text-sm mb-4">
+            {contest.maxTeamSize} members per team
+          </p>
           {(contest.status === "running" || contest.status === "upcoming") && (
             <Link href={`/contests/${contest.id}/register`}>
               <Button variant="secondary">Register Now</Button>

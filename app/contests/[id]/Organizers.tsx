@@ -14,17 +14,22 @@ const Organizers = ({ contest }: { contest: ContestResponse }) => {
         <CardHeader>
           <CardTitle>Organizers</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-6">
-          {contest.organizers.map((organizer) => (
-            <div className="flex items-center" key={organizer}>
-              <Avatar />
-              <Link href={`${Routes.PROFILE}/${organizer}`}>
-                <Button variant="link" className="font-semibold">
-                  {organizer}
-                </Button>
-              </Link>
-            </div>
-          ))}
+        <CardContent>
+          <p className="mb-4">
+            The following organizers are responsible for managing the contest
+          </p>
+          <div className="grid gap-6">
+            {contest.organizers.map((organizer) => (
+              <div className="flex items-center" key={organizer}>
+                <Avatar />
+                <Link href={`${Routes.PROFILE}/${organizer}`}>
+                  <Button variant="link" className="font-semibold">
+                    {organizer}
+                  </Button>
+                </Link>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>

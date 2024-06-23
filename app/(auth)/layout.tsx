@@ -14,7 +14,7 @@ export default function RootLayout({
       enableSystem
       disableTransitionOnChange
     >
-      <Suspense fallback="Loading...">{children}</Suspense>
+      <Suspense fallback={null}>{children}</Suspense>
     </ThemeProvider>
   );
 }

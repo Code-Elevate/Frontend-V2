@@ -7,14 +7,16 @@ import { navTitles } from "@/app/routes";
 import Footer from "@/components/Footer";
 import Heading from "@/components/Heading";
 import MainPage from "@/components/MainPageHOC";
-import ManageContestsTable from "@/components/ManageContests";
+import ManageContestsTable from "@/components/Tables/ManageContests";
 import { ContestData } from "@/types/contest";
 import { getManageContests } from "@/utils/services/manageContests";
 
 import CreateContest from "./CreateContest";
 
 const ManageContests = () => {
-  const [contestsData, setContestsData] = useState<ContestData[] | null>(null);
+  const [contestsData, setContestsData] = useState<ContestData[] | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     const fetchContests = async () => {
@@ -47,7 +49,7 @@ const ManageContests = () => {
     <MainPage activeNav={navTitles.Contests}>
       <Heading>Manage Contests</Heading>
       <CreateContest />
-      <ManageContestsTable yourContests={contestsData || []} />
+      <ManageContestsTable yourContests={contestsData} />
       <Footer />
     </MainPage>
   );

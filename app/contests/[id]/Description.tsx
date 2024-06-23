@@ -7,12 +7,8 @@ import { TextReader } from "@/components/TextEditor/Reader";
 
 const Description = ({ contest }: { contest: ContestResponse }) => {
   return (
-    <div className="relative my-4 mb-10">
-      <Card>
-        <CardContent className="prose m-0 p-0">
-          <TextReader value={JSON.parse(contest.longDescription)} />
-        </CardContent>
-      </Card>
+    <div className="relative p-0 m-0 mb-10">
+      <TextReader value={JSON.parse(contest.longDescription)} />
     </div>
   );
 };

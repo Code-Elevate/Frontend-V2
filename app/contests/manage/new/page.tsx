@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/Label";
 import MultipleSelector from "@/components/ui/multiple-selector";
 import { Switch } from "@/components/ui/switch";
 import { searchUsers } from "@/utils/services/search";
-import { Card } from "@/components/ui/card";
 import {
   NewContestData,
   createNewContest,
@@ -117,8 +116,6 @@ const NewContest = () => {
       return;
     }
 
-    console.log(contestDataToSend);
-
     const toastId = toast.loading("Creating contest...");
 
     createNewContest(contestDataToSend as NewContestData).then((response) => {
@@ -161,6 +158,10 @@ const NewContest = () => {
               value={contestData.title}
               onChange={handleChange}
             />
+            <p className="text-muted-foreground text-sm">
+              This will be displayed as the title of the contest. It will also
+              be used to generate unique contest IDs.
+            </p>
           </LabelInputContainer>
           <LabelInputContainer className="w-full md:w-2/3">
             <Label htmlFor="description">Description</Label>
@@ -172,6 +173,11 @@ const NewContest = () => {
               value={contestData.description}
               onChange={handleChange}
             />
+            <p className="text-muted-foreground text-sm">
+              This will be displayed as the short description of the contest. It
+              will be displayed on the table of contests. Keep it short and
+              simple.
+            </p>
           </LabelInputContainer>
         </div>
         <LabelInputContainer>
@@ -185,6 +191,25 @@ const NewContest = () => {
               onChange={handleLongDescriptionChange}
             />
           </div>
+          <span className="text-muted-foreground text-sm">
+            You can use{" "}
+            <span className="font-bold text-white-100">markdown</span> to format
+            the long description.{" "}
+            <a
+              href="https://www.markdownguide.org/basic-syntax/"
+              target="_blank"
+              rel="noreferrer"
+              className="underline text-blue-400"
+            >
+              Learn more
+            </a>{" "}
+            about basic markdown syntax.
+          </span>
+          <p className="text-muted-foreground text-sm">
+            This will be displayed as the long description of the contest. It
+            will be displayed on the contest page. Use this to provide detailed
+            information about the contest with markdown support.
+          </p>
         </LabelInputContainer>
         <LabelInputContainer>
           <Label htmlFor="organizers">Organizers</Label>
@@ -215,6 +240,10 @@ const NewContest = () => {
               });
             }}
           />
+          <p className="text-muted-foreground text-sm">
+            These users will be added as organizers of the contest. They will
+            have access to manage the contest.
+          </p>
         </LabelInputContainer>
         <div className="flex gap-0 md:gap-4 flex-col md:flex-row">
           <LabelInputContainer className="w-full md:w-1/2">
@@ -232,6 +261,10 @@ const NewContest = () => {
                 });
               }}
             />
+            <p className="text-muted-foreground text-sm">
+              This is the time when the contest will start. Select your local
+              time.
+            </p>
           </LabelInputContainer>
           <LabelInputContainer className="w-full md:w-1/2">
             <Label htmlFor="endTime">End Time</Label>
@@ -246,6 +279,10 @@ const NewContest = () => {
                 });
               }}
             />
+            <p className="text-muted-foreground text-sm">
+              This is the time when the contest will end. Select your local
+              time.
+            </p>
           </LabelInputContainer>
         </div>
         <div className="flex gap-0 md:gap-4 flex-col md:flex-row">
@@ -258,6 +295,10 @@ const NewContest = () => {
               value={contestData.maxTeamSize}
               onChange={handleChange}
             />
+            <p className="text-muted-foreground text-sm">
+              This is the maximum number of members allowed in a team. The
+              default value is 2.
+            </p>
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="penalty.value">Penalty</Label>
@@ -300,10 +341,17 @@ const NewContest = () => {
                 </Label>
               </div>
             </div>
+            <p className="text-muted-foreground text-sm">
+              This is the penalty value for each wrong submission. The default
+              value is 0. If the penalty is on, on wrong submission of a
+              problem, penalty value will be subtracted from the total score.
+            </p>
           </LabelInputContainer>
         </div>
 
-        <Button type="submit">Create Contest</Button>
+        <Button type="submit" className="mt-4">
+          Create Contest
+        </Button>
       </form>
 
       <Footer />

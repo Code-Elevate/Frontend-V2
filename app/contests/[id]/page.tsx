@@ -35,9 +35,10 @@ const ContestId = async ({ params }: Props) => {
     <MainPage activeNav={navTitles.Contests}>
       <Header contest={contest} />
       <Description contest={contest} />
-      <Organizers contest={contest} />
+      {contest.status === "running" ||
+        (contest.status === "past" && <Problems contest={contest} />)}
       <Penalty contest={contest} />
-      <Problems contest={contest} />
+      <Organizers contest={contest} />
       <Footer />
     </MainPage>
   );

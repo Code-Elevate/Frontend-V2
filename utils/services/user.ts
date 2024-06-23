@@ -50,7 +50,7 @@ export const getUserDetails = async (): Promise<UserDetails | null> => {
         }),
       },
       next: {
-        revalidate: 5 * 60,
+        revalidate: 60,
       },
     });
 
@@ -79,7 +79,7 @@ export const getUserHistory = async (): Promise<UserHistory | null> => {
         }),
       },
       next: {
-        revalidate: 5 * 60,
+        revalidate: 60,
       },
     });
 

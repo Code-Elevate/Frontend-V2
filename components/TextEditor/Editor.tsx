@@ -56,7 +56,7 @@ export function TextEditor({
 
               <Editor
                 focusRing={false}
-                className="border-none pt-4"
+                className="border-none py-4 pb-8"
                 id={id}
                 name={name}
                 placeholder={placeholderValue}

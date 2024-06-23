@@ -1,22 +1,24 @@
-enum ApiRoutes {
+class ApiRoutes {
   // Base URL
-  _BASE = "https://code-elevate.gopalsaraf.com/api",
-  // _BASE = "http://localhost:8080",
+  static _BASE = "https://code-elevate.gopalsaraf.com/api";
+  // static _BASE = "http://localhost:8080";
 
   // Auth Routes
-  REGISTER = _BASE + "/users/register",
-  LOGIN = _BASE + "/users/login",
+  static REGISTER = this._BASE + "/users/register";
+  static LOGIN = this._BASE + "/users/login";
 
   // Contest Routes
-  CONTESTS = _BASE + "/contests",
-  CONTEST = _BASE + "/contests/:id",
-  MANAGE_CONTEST = _BASE + "/manage/contests",
-  NEW_CONTEST = _BASE + "/manage/contests/add",
+  static CONTESTS = this._BASE + "/contests";
+  static CONTEST = (id: string) => this._BASE + `/contests/${id}`;
+  static MANAGE_CONTEST = this._BASE + "/manage/contests";
+  static CONTEST_BY_ID = (id: string) => this._BASE + `/manage/contests/${id}`;
+  static NEW_CONTEST = this._BASE + "/manage/contests/add";
+  static UPDATE_CONTEST = this._BASE + "/manage/contests/update";
 
   // User Routes
-  DETAILS = _BASE + "/users/details",
-  HISTORY = _BASE + "/users/history",
-  SEARCH = _BASE + "/users/search",
+  static DETAILS = this._BASE + "/users/details";
+  static HISTORY = this._BASE + "/users/history";
+  static SEARCH = this._BASE + "/users/search";
 }
 
 export default ApiRoutes;

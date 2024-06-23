@@ -21,7 +21,7 @@ export const searchUsers = async (
         "Content-Type": "application/json",
       },
       next: {
-        revalidate: 10 * 60,
+        revalidate: 60,
       },
     });
 

@@ -24,6 +24,7 @@ const Login = () => {
 
   const [__, setCookies] = useCookies(["token", "user"]);
 
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -45,6 +46,8 @@ const Login = () => {
       return;
     }
 
+    setLoading(true);
+
     const toastId = toast.loading("Logging in...");
 
     const response = await login(email, password);
@@ -59,6 +62,8 @@ const Login = () => {
           onClick: () => toast.dismiss(),
         },
       });
+
+      setLoading(false);
       return;
     }
 
@@ -67,6 +72,8 @@ const Login = () => {
     localStorage.setItem("user", JSON.stringify(data.user));
 
     window.location.href = redirect || Routes.DASHBOARD;
+
+    setLoading(false);
 
     toast.success(`Welcome back, ${data.user.name}`, {
       id: toastId,
@@ -98,7 +105,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </LabelInputContainer>
-          <LabelInputContainer>
+          <LabelInputContainer className="mb-2">
             <Label htmlFor="password">Password</Label>
             <PasswordInput
               id="password"
@@ -108,13 +115,27 @@ const Login = () => {
             />
           </LabelInputContainer>
 
+          <div className="flex justify-end m-0 p-0 mb-2">
+            <Link
+              href={
+                redirect
+                  ? `${Routes.FORGOT_PASSWORD}?redirect=${redirect}`
+                  : Routes.FORGOT_PASSWORD
+              }
+              className="text-sm text-neutral-400 hover:underline text-right"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
           <MagicButton
-            title="Login"
+            title={loading ? "Logging in..." : "Login"}
             icon={<FaLocationArrow />}
             position="right"
             otherClasses="!bg-[#161A31]"
             otherMainClasses="w-full md:mt-4"
             rounded="rounded-[4px]"
+            disabled={loading || !email || !password}
           />
 
           <div className="flex items-center justify-center mt-8 gap-1">
@@ -137,9 +158,10 @@ const Login = () => {
 
           <div className="flex flex-col space-y-4">
             <button
-              className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full rounded-[4px] h-12 font-medium shadow-input bg-slate-900 border border-white/[0.2] shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+              className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full rounded-[4px] h-12 font-medium shadow-input bg-slate-900 border border-white/[0.2] shadow-[0px_0px_1px_1px_var(--neutral-800)] disabled:cursor-not-allowed disabled:opacity-50"
               type="button"
               onClick={() => toast.info("Google Sign In is coming soon!")}
+              disabled={loading}
             >
               <IconBrandGoogle className="h-4 w-4 text-neutral-300" />
               <span className="text-neutral-300 text-sm ">

@@ -23,11 +23,12 @@ const Register = () => {
   const router = useRouter();
   const redirect = useSearchParams().get("redirect");
 
+  const [__, setCookies] = useCookies(["token", "user"]);
+
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [__, setCookies] = useCookies(["token", "user"]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,6 +64,8 @@ const Register = () => {
       return;
     }
 
+    setLoading(true);
+
     const toastId = toast.loading("Registering...");
 
     const response = await register(name, email, password);
@@ -77,6 +80,8 @@ const Register = () => {
           onClick: () => toast.dismiss(),
         },
       });
+
+      setLoading(false);
       return;
     }
 
@@ -85,6 +90,8 @@ const Register = () => {
     localStorage.setItem("user", JSON.stringify(data.user));
 
     router.replace(redirect || Routes.DASHBOARD);
+
+    setLoading(false);
 
     toast.success(`Welcome, ${data.user.name}`, {
       id: toastId,
@@ -102,7 +109,7 @@ const Register = () => {
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
       </div>
 
-      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input z-50 relative mt-20 border border-white/[0.2] bg-slate-950 bg-opacity-25">
+      <div className="max-w-md w-full mx-auto rounded-2xl p-4 md:pt-8 md:px-8 shadow-input z-50 relative mt-20 border border-white/[0.2] bg-slate-950 bg-opacity-25">
         <h1 className="font-medium text-2xl">Register to CodeElevate</h1>
 
         <form className="my-8" onSubmit={handleSubmit}>
@@ -137,12 +144,13 @@ const Register = () => {
           </LabelInputContainer>
 
           <MagicButton
-            title="Register"
+            title={loading ? "Registering..." : "Register"}
             icon={<FaLocationArrow />}
             position="right"
             otherClasses="!bg-[#161A31]"
             otherMainClasses="w-full md:mt-4"
             rounded="rounded-[4px]"
+            disabled={loading || !name || !email || !password}
           />
 
           <div className="flex items-center justify-center mt-8 gap-1">
@@ -164,6 +172,7 @@ const Register = () => {
               className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full rounded-[4px] h-12 font-medium shadow-input bg-slate-900 border border-white/[0.2] shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="button"
               onClick={() => toast.info("Google Sign In is coming soon!")}
+              disabled={loading}
             >
               <IconBrandGoogle className="h-4 w-4 text-neutral-300" />
               <span className="text-neutral-300 text-sm ">

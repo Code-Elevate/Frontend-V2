@@ -31,12 +31,12 @@ export const getContest = async (
   id: string
 ): Promise<ContestResponse | null> => {
   try {
-    const response = await fetch(ApiRoutes.CONTEST.replace(":id", id), {
+    const response = await fetch(ApiRoutes.CONTEST(id), {
       headers: {
         "Content-Type": "application/json",
       },
       next: {
-        revalidate: 10,
+        revalidate: 5,
       },
     });
 

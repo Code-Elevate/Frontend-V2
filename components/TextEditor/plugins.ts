@@ -114,11 +114,6 @@ import {
   ELEMENT_IMAGE,
   ELEMENT_MEDIA_EMBED,
 } from "@udecode/plate-media";
-import {
-  createMentionPlugin,
-  ELEMENT_MENTION,
-  ELEMENT_MENTION_INPUT,
-} from "@udecode/plate-mention";
 import { createNodeIdPlugin } from "@udecode/plate-node-id";
 import {
   createParagraphPlugin,
@@ -168,7 +163,6 @@ export const plugins = createPlugins(
         pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED],
       },
     }),
-
     createExcalidrawPlugin(),
     createColumnPlugin(),
     createTablePlugin(),

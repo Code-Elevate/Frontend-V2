@@ -25,7 +25,7 @@ export const getContests = async (): Promise<ContestDataResponse | null> => {
         }),
       },
       next: {
-        revalidate: 60,
+        revalidate: 5,
       },
     });
 

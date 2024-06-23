@@ -9,16 +9,16 @@ const ManageContests = () => {
   return (
     <div className="relative my-4 mb-10">
       <Card>
-        <CardContent className="flex justify-between items-center pt-6">
+        <CardContent className="flex flex-col md:flex-row gap-8 items-start justify-between md:items-center pt-6">
           <div className="flex flex-col gap-8 relative justify-center items-start mt-3 mb-1">
             <CardTitle className="font-medium ">Manage contests</CardTitle>
-            <p>
+            <p className="text-sm md:text-base">
               Manage your contests here. You can create, edit, delete and view
               all your contests here.
             </p>
           </div>
           <Link href={Routes.MANAGE_CONTESTS}>
-            <Button variant="default">Manage contest</Button>
+            <Button variant="secondary">Manage contest</Button>
           </Link>
         </CardContent>
       </Card>

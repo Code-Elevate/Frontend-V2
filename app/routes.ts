@@ -7,6 +7,7 @@ export enum Routes {
   PROFILE = "/profile",
   REGISTER = "/register",
   LOGIN = "/login",
+  FORGOT_PASSWORD = "/forgot-password",
 
   MANAGE_CONTESTS = CONTESTS + "/manage",
   NEW_CONTEST = MANAGE_CONTESTS + "/new",

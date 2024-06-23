@@ -13,12 +13,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { routeToProblem, routeToProblemSubmissions } from "@/utils/navigate";
 import {
   ContestProblemResponse,
   ContestResponse,
 } from "@/utils/services/contest";
 import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
+import { Routes } from "@/app/routes";
 
 const problemsColumns: ColumnDef<ContestProblemResponse>[] = [
   {
@@ -27,13 +28,11 @@ const problemsColumns: ColumnDef<ContestProblemResponse>[] = [
     cell: ({ row }) => {
       const problem = row.original;
       return (
-        <Button
-          variant="link"
-          className="p-0"
-          onClick={() => routeToProblem(problem.id)}
-        >
-          {problem.id}
-        </Button>
+        <Link href={`${Routes.PROBLEMS}/${problem.id}`}>
+          <Button variant="link" className="p-0">
+            {problem.id}
+          </Button>
+        </Link>
       );
     },
   },
@@ -75,13 +74,15 @@ const problemsColumns: ColumnDef<ContestProblemResponse>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => routeToProblem(contest.id)}>
-              Solve
+            <DropdownMenuItem>
+              <Link href={`${Routes.PROBLEMS}/${contest.id}`}>
+                View Problem
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => routeToProblemSubmissions(contest.id)}
-            >
-              Show Submissions
+            <DropdownMenuItem>
+              <Link href={`${Routes.PROBLEMS}/${contest.id}/submissions`}>
+                View Submissions
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -92,7 +93,7 @@ const problemsColumns: ColumnDef<ContestProblemResponse>[] = [
 
 const Problems = ({ contest }: { contest: ContestResponse }) => {
   return (
-    <div className="relative my-4">
+    <div className="relative my-4 mb-10">
       <Card>
         <CardHeader>
           <CardTitle>Problems</CardTitle>

@@ -12,7 +12,11 @@ export function TextReader({ value }: { value: any }) {
   return (
     <DndProvider backend={HTML5Backend}>
       <Plate plugins={plugins} initialValue={value} readOnly>
-        <Editor focusRing={false} className="border pb-4" readOnly />
+        <Editor
+          focusRing={false}
+          className="border-none bg-transparent pb-4 p-0 m-0"
+          readOnly
+        />
       </Plate>
     </DndProvider>
   );

@@ -7,10 +7,10 @@ import { navTitles } from "@/app/routes";
 import Footer from "@/components/Footer";
 import Heading from "@/components/Heading";
 import MainPage from "@/components/MainPageHOC";
-import PastContests from "@/components/PastContests";
-import RunningContests from "@/components/RunningContests";
-import UpcommingContests from "@/components/UpcomingContests";
-import YourRunningContests from "@/components/YourRunningContests";
+import PastContests from "@/components/Tables/PastContests";
+import RunningContests from "@/components/Tables/RunningContests";
+import UpcommingContests from "@/components/Tables/UpcomingContests";
+import YourRunningContests from "@/components/Tables/YourRunningContests";
 import { ContestDataResponse, getContests } from "@/utils/services/dashboard";
 import { getUserDetails, UserDetails } from "@/utils/services/user";
 
