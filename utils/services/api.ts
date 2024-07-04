@@ -1,6 +1,6 @@
 class ApiRoutes {
   // Base URL
-  static _BASE = "https://code-elevate.gopalsaraf.com/api";
+  static _BASE = "https://code-elevate-api.onrender.com";
   // static _BASE = "http://localhost:8080";
 
   // Auth Routes

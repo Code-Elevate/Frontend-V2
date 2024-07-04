@@ -17,7 +17,7 @@ const CreateContest = () => {
             </p>
           </div>
           <Link href={Routes.NEW_CONTEST}>
-            <Button variant="secondary">Create contest</Button>
+            <Button variant="default">Create contest</Button>
           </Link>
         </CardContent>
       </Card>

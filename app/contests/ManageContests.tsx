@@ -18,7 +18,7 @@ const ManageContests = () => {
             </p>
           </div>
           <Link href={Routes.MANAGE_CONTESTS}>
-            <Button variant="secondary">Manage contest</Button>
+            <Button variant="default">Manage contest</Button>
           </Link>
         </CardContent>
       </Card>
