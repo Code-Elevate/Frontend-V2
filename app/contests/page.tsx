@@ -16,6 +16,8 @@ import { ContestDataResponse, getContests } from "@/utils/services/dashboard";
 
 import ManageContests from "./ManageContests";
 
+export const maxDuration = 60;
+
 const Contests = () => {
   const [cookies] = useCookies(["token"]);
 

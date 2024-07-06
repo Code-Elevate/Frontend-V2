@@ -16,6 +16,8 @@ import { getUserDetails, UserDetails } from "@/utils/services/user";
 
 import UserAnalytics from "./UserAnalytics";
 
+export const maxDuration = 60;
+
 const Dashboard = () => {
   const [contestsData, setContestsData] = useState<ContestDataResponse | null>(
     null

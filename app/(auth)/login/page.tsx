@@ -19,6 +19,8 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 import { login } from "@/utils/services/auth";
 import { IconBrandGoogle } from "@tabler/icons-react";
 
+export const maxDuration = 60;
+
 const Login = () => {
   const redirect = useSearchParams().get("redirect");
 

@@ -1,3 +1,5 @@
+"use server";
+
 import ApiRoutes from "./api";
 
 export const register = async (
